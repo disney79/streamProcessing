@@ -1,0 +1,20 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /app
+hooks:
+  BeforeInstall:
+    - location: yum install Flask
+    - location: yum install Redis
+    - location: yum install BeautifulSoup4
+      timeout: 300
+      runas: root
+  AfterInstall:
+  
+  ApplicationStart:
+    - location: scripts/python app.py
+      timeout: 300
+      runas: root
+      
+  ApplicationStop:
